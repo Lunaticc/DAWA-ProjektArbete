@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+    <div class="log d-flex justify-content-center align-items-center vh-100">
+        <div class="discoTag h-50 w-25">
+            <div class="loginSquare w-100 d-flex">
+                <div class="loginInner shadow-sm p-2 d-inline-block border">
+                    <div class="innerHeader d-flex justify-content-center">
+                        <div class="loginTitle">
+                            <h1>Fuck yes</h1>
+                        </div>
+                    </div>
+                    <div class="innerBody d-flex">
+                        <div class="bodyDivider mr-2 bg-success">
+                            Placeholder picture maybe? Pic of dogo maybe? :D
+                        </div>
+                        <div class="bodyDivider">
+                            <form th:action="@{/login}" method="post">
+                                <div class="formDiv mt-2 d-flex flex-column">
+                                    <label for="username">Username:</label>
+                                    <input type="text" id="username" name="username">
+                                </div>
+                                <div class="formDiv mt-2 d-flex flex-column">
+                                    <label for="password">password:</label>
+                                    <input type="password" id="password" name="password">
+                                </div>
+<!--                                Not at all robins Error message-->
+                                <div class="alert alert-danger" role="alert" th:if="${param.error}">
+                                    Error: Invalid Username / Password.
+                                </div>
+                                <div class="formDiv mt-2">
+                                    <button class="btn btn-primary">
+                                        Sign in
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
