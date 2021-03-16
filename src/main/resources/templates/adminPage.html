@@ -28,9 +28,15 @@
     <main>
         <div class="row d-flex flex-row mt-2 justify-content-between">
             <div class="col-5 d-flex flex-column align-items-center">Show all the users in here :D
-                <div class="userDiv">
-                    <div class="showUsers bg-primary" style="height: 150px">
-                        maybe
+
+                <div class="userDiv w-100">
+                    <div class="showUsers bg-primary w-100" style="height: 150px">
+                        <div class="userBox" th:each="account : ${userList}">
+                            <div class="userBoxUpper">
+                                <h1 th:text="${account.getUsername()}"></h1>
+                            </div>
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -41,9 +47,6 @@
     <footer>
 
     </footer>
-
-    <h1 th:text="${user.getUsername()}"></h1>
-    <h1 th:text="${user.getEmail()}"></h1>
 
 </div>
 

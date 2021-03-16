@@ -18,5 +18,7 @@ public class UserController {
 //        model.addAttribute("Suck", "ITITITITITITITITITITITITI");
 //        return "adminPage";
 //    }
+    
+    
 
 }

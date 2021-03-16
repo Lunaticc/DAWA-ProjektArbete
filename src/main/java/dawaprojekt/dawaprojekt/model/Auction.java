@@ -50,13 +50,14 @@ public class Auction {
     public Auction() {
     }
 
-    public Auction(String description, String itemName, double reservedPrice, Date endDate, String itemCondition, String urlImage) {
+    public Auction(String description, String itemName, double reservedPrice, Date endDate, String itemCondition, String urlImage, String category) {
         this.description = description;
         this.itemName = itemName;
         this.reservedPrice = reservedPrice;
         this.endDate = endDate;
         this.itemCondition = itemCondition;
         this.urlImage = urlImage;
+        this.category = category;
     }
 
     public int getAuctionID() {
@@ -117,6 +118,14 @@ public class Auction {
 
     public void setAuctionID(Integer auctionID) {
         this.auctionID = auctionID;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public User getUser() {
