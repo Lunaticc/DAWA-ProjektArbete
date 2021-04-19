@@ -18,29 +18,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     DataSource dataSource;
 
     @Autowired
-        public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-            auth.jdbcAuthentication().passwordEncoder(new BCryptPasswordEncoder())
-                    .dataSource(dataSource)
-                    .usersByUsernameQuery("select username, password, enabled from user where username=?")
-                    .authoritiesByUsernameQuery("select username, role from user where username=?");
-        }
+    public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
+        auth.jdbcAuthentication().passwordEncoder(new BCryptPasswordEncoder())
+                .dataSource(dataSource)
+                .usersByUsernameQuery("select username, password, enabled from user where username=?")
+                .authoritiesByUsernameQuery("select username, role from user where username=?");
+    }
 
-        @Override
-        protected void configure(HttpSecurity http) throws Exception{
-            http.authorizeRequests()
-                    .antMatchers("/*").permitAll()
-                    .antMatchers("/admin/**").hasRole("ADMIN")
-                    .antMatchers("/bidder/**").hasRole("BIDDER")
-                    .antMatchers("/seller/**").hasRole("SELLER")
-                    .anyRequest().authenticated()
-                    .and()
-                    .formLogin().permitAll()
-                    .and()
-                    .formLogin().loginPage("/login").defaultSuccessUrl("/signIn").permitAll()
-                    .and()
-                    .logout().permitAll()
-                    .logoutSuccessUrl("/login");
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+                .antMatchers("/*").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/user/**").hasRole("USER")
+                .anyRequest().authenticated()
+                .and()
+                .formLogin().permitAll()
+                .and()
+                .formLogin().loginPage("/login").defaultSuccessUrl("/signIn").permitAll()
+                .and()
+                .logout().permitAll()
+                .logoutSuccessUrl("/login");
 
-            http.cors().and().csrf().disable();
-        }
+        http.cors().and().csrf().disable();
+    }
 }

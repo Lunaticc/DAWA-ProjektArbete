@@ -29,7 +29,7 @@ public class Bid {
     }
 
     public int getBidID() {
-        return bidID;
+        return bidID != null ? bidID : -1;
     }
 
     public void setBidID(int bidID) {
@@ -70,5 +70,16 @@ public class Bid {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "Bid{" +
+                "bidID=" + bidID +
+                ", amount=" + amount +
+                ", date=" + date +
+                ", user=" + user +
+                ", auction=" + auction +
+                '}';
     }
 }

@@ -7,56 +7,96 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
-    <div class="log d-flex justify-content-center align-items-center vh-100">
-        <div class="discoTag h-50 w-25">
-            <div class="loginSquare w-100 d-flex">
-                <div class="loginInner shadow-sm p-2 d-inline-block border">
-                    <div class="innerHeader d-flex justify-content-center">
-                        <div class="loginTitle">
-                            <h1>Sign in</h1>
-                        </div>
+<div class="log d-flex justify-content-center align-items-center vh-100">
+    <div class="discoTag h-50 w-25">
+        <div class="loginSquare w-100 d-flex">
+            <div class="loginInner shadow-sm p-2 d-inline-block border">
+                <div class="innerHeader d-flex justify-content-center">
+                    <div class="loginTitle">
+                        <h1>Sign in</h1>
                     </div>
-                    <div class="innerBody d-flex">
-                        <div class="bodyDivider mr-2 bg-success">
-                            Placeholder picture maybe? Pic of dogo maybe? :D
+                </div>
+                <div class="innerBody d-flex">
+                    <div class="bodyDivider mr-2">
+                        <picture>
+                            <img th:src="${imagePlaceholder}"
+                                 alt="" style="max-height: 300px" class="img-fluid">
+                        </picture>
+                    </div>
+                    <div class="bodyDivider">
+                        <form th:action="@{/login}" method="post">
+                            <div class="formDiv mt-2 d-flex flex-column">
+                                <label for="username">Username:</label>
+                                <input type="text" id="username" name="username">
+                            </div>
+                            <div class="formDiv mt-2 d-flex flex-column">
+                                <label for="password">password:</label>
+                                <input type="password" id="password" name="password">
+                            </div>
+                            <div class="alert alert-danger" role="alert" th:if="${param.error}">
+                                Error: Invalid Username / Password.
+                            </div>
+                            <div class="formDiv mt-2 mb-2 w-100">
+                                <button class="btn btn-primary w-100">
+                                    Sign in
+                                </button>
+                            </div>
+                        </form>
+                        <button type="button" class="btn btn-primary w-100" data-toggle="modal"
+                                th:attr="data-target='#createUser'"><span>Create user</span></button>
                         </div>
-                        <div class="bodyDivider">
-                            <form th:action="@{/login}" method="post">
-                                <div class="formDiv mt-2 d-flex flex-column">
-                                    <label for="username">Username:</label>
-                                    <input type="text" id="username" name="username">
+                </div>
+            </div>
+            <div class="modal fade" th:id="createUser" tabindex="-1"
+                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" th:text="CreateUser" id="exampleModalLabel">
+                                Modal title</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form th:action="@{/createUser}" th:object="${user}"
+                                  method="post">
+                                <div class="mb-3">
+                                    <label for="createUsername" class="col-form-label">Username: </label>
+                                    <input type="text" name="createUsername" id="createUsername"
+                                           th:field="*{username}" class="form-control">
                                 </div>
-                                <div class="formDiv mt-2 d-flex flex-column">
-                                    <label for="password">password:</label>
-                                    <input type="password" id="password" name="password">
+                                <div class="mb-3">
+                                    <label for="createPassword" class="col-form-label">Password: </label>
+                                    <input type="text" name="createPassword" id="createPassword"
+                                           th:field="*{password}" class="form-control">
+                                    </select>
                                 </div>
-<!--                                Not at all robins Error message-->
-                                <div class="alert alert-danger" role="alert" th:if="${param.error}">
-                                    Error: Invalid Username / Password.
+                                <div class="mb-3">
+                                    <label for="createEmail" class="col-form-label">Email: </label>
+                                    <input type="email" id="createEmail" name="createEmail" th:field="*{email}">
                                 </div>
-                                <div class="formDiv mt-2">
-                                    <button class="btn btn-primary">
-                                        Sign in
+                                <div class="form-group">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
                                     </button>
+                                    <button type="submit" class="btn btn-primary ">Create user</button>
                                 </div>
                             </form>
                         </div>
+                        <div class="modal-footer">
 
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+</div>
 
 
-
-
-
-
-
-
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

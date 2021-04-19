@@ -1,5 +1,6 @@
 package dawaprojekt.dawaprojekt.model;
 
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,8 +8,6 @@ import java.util.List;
 @Entity
 public class User {
 
-
-    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
@@ -21,7 +20,7 @@ public class User {
     private String email;
     @Column(nullable = false)
     private String role;
-    @Column(nullable = false)
+    @Column(nullable = true, length = 4000)
     private String userInfo;
     @Column(nullable = false)
     private boolean enabled;

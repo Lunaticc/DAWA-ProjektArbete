@@ -14,20 +14,22 @@ public class BidService {
     @Autowired
     private BidRepository bidRepository;
 
+    @Autowired
+    EmailService emailService;
+
     // Add Bid
-    public Bid addBid(Bid bid){
+    public Bid addBid(Bid bid) {
+        emailService.sendToBidder(bid.getUser().getEmail(), bid.getAuction(), bid);
         return bidRepository.save(bid);
     }
 
-    // Remove bid?!?!?!?!
-
-    public void removeBid(Bid bid){
-        bidRepository.delete(bid);
-    }
     // Get all bids
-
-    public List<Bid> getAll(){
+    public List<Bid> getAll() {
         return bidRepository.findAll();
+    }
+
+    public List<Bid> getTopBids() {
+        return bidRepository.getTopBids(7);
     }
 
 }

@@ -1,7 +1,11 @@
 package dawaprojekt.dawaprojekt.model;
 
+import org.springframework.core.annotation.Order;
+
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -12,20 +16,22 @@ public class Auction {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer auctionID;
 
-    @Column
+    @Column(nullable = true, length = 4000)
     private String description;
     @Column(nullable = false)
     private String itemName;
     @Column(nullable = false)
     private double reservedPrice;
     @Column(nullable = false)
-    private Date endDate;
+    private LocalDateTime endDate;
     @Column(nullable = false)
     private String itemCondition;
     @Column(nullable = false)
     private String urlImage;
     @Column(nullable = false)
     private String category;
+    @Column(nullable = true)
+    private double highestBid;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
@@ -35,14 +41,15 @@ public class Auction {
             cascade = CascadeType.ALL,
             orphanRemoval = true
     )
+    @OrderBy("amount DESC")
     private List<Bid> bids = new ArrayList<>();
 
-    public void addBid(Bid bid){
+    public void addBid(Bid bid) {
         this.bids.add(bid);
         bid.setAuction(this);
     }
 
-    public void removeBid(Bid bid){
+    public void removeBid(Bid bid) {
         this.bids.remove(bid);
         bid.setAuction(null);
     }
@@ -50,7 +57,7 @@ public class Auction {
     public Auction() {
     }
 
-    public Auction(String description, String itemName, double reservedPrice, Date endDate, String itemCondition, String urlImage, String category) {
+    public Auction(String description, String itemName, double reservedPrice, LocalDateTime endDate, String itemCondition, String urlImage, String category) {
         this.description = description;
         this.itemName = itemName;
         this.reservedPrice = reservedPrice;
@@ -61,7 +68,10 @@ public class Auction {
     }
 
     public int getAuctionID() {
-        return auctionID;
+        if (auctionID != null) {
+            return auctionID;
+        }
+        return -1;
     }
 
     public void setAuctionID(int auctionID) {
@@ -92,11 +102,11 @@ public class Auction {
         this.reservedPrice = reservedPrice;
     }
 
-    public Date getEndDate() {
+    public LocalDateTime getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(Date endDate) {
+    public void setEndDate(LocalDateTime endDate) {
         this.endDate = endDate;
     }
 
@@ -134,5 +144,31 @@ public class Auction {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public double getHighestBid() {
+        return highestBid;
+    }
+
+    public void setHighestBid(double highestBid) {
+        this.highestBid = highestBid;
+    }
+
+    public List<Bid> getBids() {
+        return bids;
+    }
+
+    @Override
+    public String toString() {
+        return "Auction{" +
+                "auctionID=" + auctionID +
+                ", description='" + description + '\'' +
+                ", itemName='" + itemName + '\'' +
+                ", reservedPrice=" + reservedPrice +
+                ", endDate=" + endDate +
+                ", itemCondition='" + itemCondition + '\'' +
+                ", urlImage='" + urlImage + '\'' +
+                ", category='" + category + '\'' +
+                '}';
     }
 }
